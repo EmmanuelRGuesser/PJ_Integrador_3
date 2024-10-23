@@ -20,11 +20,11 @@ Com o aumento das tarifas de energia elétrica, ser capaz de identificar os maio
 
 ## Dispositivo
 
-O dispositivo funcionará entre as tomadas adquirindo os dados necessários, abaixo temos uma representação dele:
+O dispositivo funcionará entre as tomadas adquirindo os dados por meio do sensor PZEM-004T, abaixo temos uma representação dele:
 
 <img alt="dispositivo" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/dispositivo%20de%20teste.jpg" width="400" />
 
-Ele deve ser conectado a tomada para o fornecimento de energia, dentro ele possui uma fonte interna para alimentar do circuito interno. Esse circuito é composto pelo microcontrolador(ESP32), sensores(PZEM-004t), relé de acionamento e leds, já a interface será integrada com o Home Assistant.
+Ele deve ser conectado a tomada para o fornecimento de energia, dentro da case possui uma fonte para alimentar o ciruito. Esse circuito é composto pelo microcontrolador(ESP32), sensor(PZEM-004t), relé de acionamento e leds para facil identificação do funcionamento, já a interface será integrada com o Home Assistant.
 
 Para o projeto será utilizado os seguintes componentes:
 - ESP32
@@ -39,8 +39,9 @@ Para o projeto será utilizado os seguintes componentes:
 ### ESP32
 
 ### PZEM-004t
-O PZEM-004T é um módulo de comunicação AC usado para medir tensão, corrente, potência ativa, frequência, fator de potência e energia ativa. Os dados são transmitidos para o microcontrolador por meio de comunicação serial TTL. 
+O PZEM-004T é um módulo que possui funcionalisades de Voltimetro, Amperímetro e Wattimetro. Os dados são transmitidos para o microcontrolador por meio de comunicação serial TTL. 
 
 ### Fonte Hi-link 5V
+É um conversor step down que trabalha com uma tensão de alimentação AC-DC 127/220V para 3.3V, com uma potencia de 3W, o qual será suficiente para alimentar o microcontrolador e os periféricos contidos no circuito. Foi escolhido esse modelo de fonte pois é compacta, facil de encontrar no mercado e possui certificações que garantem a qualidade da tensão e corrente entregues na saída, dentro da potencia especificada.
 
 
