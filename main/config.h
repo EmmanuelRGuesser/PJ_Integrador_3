@@ -1,6 +1,6 @@
 // Configurações de Wi-Fi
-#define WIFI_SSID "Guesser"
-#define WIFI_PASS "guesser123"
+#define WIFI_SSID "USER_SSID"
+#define WIFI_PASS "USER_PASSWORD"
 
 // Configurações MQTT
 #define MQTT_BROKER_URI     "mqtt://192.168.3.127"
