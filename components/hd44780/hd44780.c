@@ -47,8 +47,8 @@
 #define BV(x) (1 << (x))
 #define GPIO_BIT(x) (1ULL << (x))
 
-#define DELAY_CMD_LONG  (3 * MS) // >1.53ms according to datasheet
-#define DELAY_CMD_SHORT (60)     // >39us according to datasheet
+#define DELAY_CMD_LONG  (2 * MS) // >1.53ms according to datasheet
+#define DELAY_CMD_SHORT (40)     // >39us according to datasheet
 #define DELAY_TOGGLE    (1)      // E cycle time >= 1μs, E pulse width >= 450ns, Data set-up time >= 195ns
 #define DELAY_INIT      (5 * MS)
 

@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"pzem004t.h": "c",
+			"uart_ll.h": "c",
+			"esp_wifi.h": "c",
+			"soc_caps.h": "c"
+		}
+	}
+}

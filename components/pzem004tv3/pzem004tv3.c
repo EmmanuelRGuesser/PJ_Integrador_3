@@ -152,14 +152,13 @@ bool PzResetEnergy( pzem_setup_t *pzSetup )
     memset(reply, 0, sizeof(reply));
 
     buffer[ 0 ] = pzSetup->pzem_addr;
-    buffer[ 1 ] = 0x00;
-    buffer[ 2 ] = CMD_REST;
+    buffer[ 1 ] = CMD_REST;
+    buffer[ 2 ] = 0x00;
     buffer[ 3 ] = 0x00;
-    buffer[ 4 ] = 0x00;
 
     (void)PzemSetCRC( buffer, 4 );
     if (uart_write_bytes( pzSetup->pzem_uart, buffer, 4 ) == -1) {
-        ESP_LOGE(LOG_TAG, "Failed to write to sensor/UART !!");
+        ESP_LOGI(LOG_TAG, "Failed to write to sensor/UART !!");
     }
 
     uint16_t length = PzemReceive( pzSetup, reply, 5 );
