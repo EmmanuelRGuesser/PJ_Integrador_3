@@ -32,6 +32,7 @@ Para o projeto será utilizado os seguintes componentes:
 - Relé
 - Fonte Hi-link 5V 3W
 - 2 leds
+- Display LCD 20x4
 - Case takachi WPL15-15-6
 
 ---
@@ -44,7 +45,7 @@ O ESP32 é um microcontrolador de baixo custo e baixa potência, desenvolvido pe
 O PZEM-004T é um módulo que possui funcionalidades de Voltimetro, Amperímetro e Wattimetro. Os dados são transmitidos para o microcontrolador por meio de comunicação serial TTL. 
 
 ### Fonte Hi-link 5V
-É um conversor step down que trabalha com uma tensão de alimentação AC-DC 127/220V para 3.3V, com uma potencia de 3W, o qual será suficiente para alimentar o microcontrolador e os periféricos contidos no circuito. Foi escolhido esse modelo de fonte pois é compacta, facil de encontrar no mercado e possui certificações que garantem a qualidade da tensão e corrente entregues na saída, dentro da potencia especificada.
+É um conversor step down que trabalha com uma tensão de alimentação AC-DC 127/220V para 5V, com uma potencia de 5W, o qual será suficiente para alimentar o microcontrolador e os periféricos contidos no circuito. Foi escolhido esse modelo de fonte pois é compacta, facil de encontrar no mercado e possui certificações que garantem a qualidade da tensão e corrente entregues na saída, dentro da potencia especificada.
 
 ### LEDs
 O dispositivo conta com dois leds que dão um feedback do funcionamento do sistema. Um led vermelho indicará que o circuito está ligado e outro led verde indicará estado de conexão com o wifi.
@@ -65,23 +66,23 @@ O ESP32 é um microcontrolador com conectividade Wi-Fi e Bluetooth, amplamente u
 
 Funcionamento da Integração:
 
-
 1. Configurar a rede Wi-Fi e login do Home Assistant na pagina WEB gerada pelo ESP.
 2. O Home Assistant recebe os dados por meio do protocolo MQTT Moskito.
 3. Armazena os dados em forma de entidades, no bando de dados InfluxDB.
 4. No banco de dados possui um dashboard o qual mostra todos os dados plotados para o gerenciamento.
 
 ---
-### Funcionamento do Monitor de Energia
+
+## Funcionamento do Monitor de Energia
 
 Para o funcionamento do dispositivo devemos conectar a rede Wi-FI, isso é feito através do aplicativo ESP BLE Provising que está disponível na Play Store e App Store, leia o [código QR do link](https://espressif.github.io/esp-jumpstart/qrcode.html?data=%7B%22ver%22:%22v1%22,%22name%22:%22Monitor%20de%20energia%22,%22pop%22:%22abcd1234%22,%22transport%22:%22ble%22%7D) ou procure por monitor de energia e use a senha “abc1234”, com isso você pode ver as redes disponíveis e fazer a conexão, caso necessário reconfigurar a rede, somente pressione o botão ao lado da entrada de alimentação por 3 segundos que seu dispositivo irá reiniciar e basta seguir os passos anteriores. 
 
-Agora é possível acessar a página de configurações através do Web Server gerado pela ESP32, acesse [monitor-energia.local](http://monitor-energia.local/), através dela você deve configurar o serviço MQTT para realizar a comunicação de dados entre o monitor de energia e o Home Assistant, use sua conta e senha do HA. Você também pode configurar os alertas, visualizar o consumo acumulado, além de ligar e desligar o dispositivo conectado através da página.
+Agora é possível acessar a página de configurações através do Web Server gerado pela ESP32, acesse [monitor-energia.local](http://monitor-energia.local/), através dela você deve configurar o serviço MQTT para realizar a comunicação de dados entre o monitor de energia e o Home Assistant, use sua conta e senha do seu perfil do HA. Você também pode configurar os alertas, visualizar o consumo acumulado, além de ligar e desligar o dispositivo conectado através da página.
 
 O sistema de alertas funciona como uma proteção que irá atuar desligando o dispositivo conectado ao monitor, a proteção age sobre tensão mínima e tensão, corrente e potência máxima, sempre que um alerta é disparado um aviso é exibido na tela, para voltar ao funcionamento basta clicar no botão ligar. Caso você queira não utilizar os alertas, somente deixe o item com 0. 
 Na página de consumo acumulado é exibido quantidade de energia consumida pelo dispositivo conectado, com isso você pode estimar o valor gasto com ele, caso você queira trocar o dispositivo monitorado ou no que for necessário, você pode zerar o contador clicando em zerar energia.
 
-Com isso, já é possível ver na tela LCD do monitor dados como tensão, corrente, potência e energia consumida, além dos avisos do dispositivos e informaçãoes já descritas acima, isso sem a necessidade de integrar com o Home Assistant , porém para conseguir monitorar os dados ao deccorecorrem com o tempo em um gráfico, você deve seguir os passos abaixo.
+Com isso, já é possível ver na tela LCD do monitor dados como tensão, corrente, potência e energia consumida, além dos avisos do dispositivos e informaçãoes já descritas acima, isso sem a necessidade de integrar com o Home Assistant , porém para conseguir monitorar os dados ao decorrer do tempo em um gráfico, você deve seguir os passos abaixo.
 
 ---
 ### Instalação do Home Assistant
@@ -216,11 +217,12 @@ Como visto acima podemos monitorar os parâmetros elétricos do dispositivo cone
 Como vemos acima o monitor entra em modo proteção e desliga a carga, para voltar a funcionar é necessário ligar novamente no menu principal.
 
 O consumo acumulado pode ser acessado pelo menu e la você poderá estimar o valor gasto pela caraga conectada, somente digite o valor pago por kWh e calcule. Caso você quiser zerar o contador nesta página também é possível fazer isto.
+
 <img alt="tela energia consumida" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/tela%20de%20energia%20consumida.png" width="350" />
 
 ---
 
-### Considerações finais
+## Considerações finais
 
 O desenvolvimento do projeto atingiu seus objetivos propostos, resultando em um dispositivo funcional capaz de monitorar o consumo elétrico de forma eficiente. A integração do hardware e software permitiu a coleta e visualização dos dados em tempo real, proporcionando um produto prático para automação residencial. Para projetos futuros, considera-se a possibilidade de utilizar um banco de dados mais robusto, um software mais avançado para a criação do dashboard e a adoção de componentes SMD para um design mais compacto, eficiente e profissional, reduzindo o tamanho da case e aprimorando a estética e usabilidade do dispositivo.
 
