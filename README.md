@@ -72,7 +72,18 @@ Funcionamento da Integração:
 4. No banco de dados possui um dashboard o qual mostra todos os dados plotados para o gerenciamento.
 
 ---
+### Funcionamento do Monitor de Energia
 
+Para o funcionamento do dispositivo devemos conectar a rede Wi-FI, isso é feito através do aplicativo ESP BLE Provising que está disponível na Play Store e App Store, leia o [código QR do link](https://espressif.github.io/esp-jumpstart/qrcode.html?data=%7B%22ver%22:%22v1%22,%22name%22:%22Monitor%20de%20energia%22,%22pop%22:%22abcd1234%22,%22transport%22:%22ble%22%7D) ou procure por monitor de energia e use a senha “abc1234”, com isso você pode ver as redes disponíveis e fazer a conexão, caso necessário reconfigurar a rede, somente pressione o botão ao lado da entrada de alimentação por 3 segundos que seu dispositivo irá reiniciar e basta seguir os passos anteriores. 
+
+Agora é possível acessar a página de configurações através do Web Server gerado pela ESP32, acesse [monitor-energia.local](http://monitor-energia.local/), através dela você deve configurar o serviço MQTT para realizar a comunicação de dados entre o monitor de energia e o Home Assistant, use sua conta e senha do HA. Você também pode configurar os alertas, visualizar o consumo acumulado, além de ligar e desligar o dispositivo conectado através da página.
+
+O sistema de alertas funciona como uma proteção que irá atuar desligando o dispositivo conectado ao monitor, a proteção age sobre tensão mínima e tensão, corrente e potência máxima, sempre que um alerta é disparado um aviso é exibido na tela, para voltar ao funcionamento basta clicar no botão ligar. Caso você queira não utilizar os alertas, somente deixe o item com 0. 
+Na página de consumo acumulado é exibido quantidade de energia consumida pelo dispositivo conectado, com isso você pode estimar o valor gasto com ele, caso você queira trocar o dispositivo monitorado ou no que for necessário, você pode zerar o contador clicando em zerar energia.
+
+Com isso, já é possível ver na tela LCD do monitor dados como tensão, corrente, potência e energia consumida, além dos avisos do dispositivos e informaçãoes já descritas acima, isso sem a necessidade de integrar com o Home Assistant , porém para conseguir monitorar os dados ao deccorecorrem com o tempo em um gráfico, você deve seguir os passos abaixo.
+
+---
 ### Instalação do Home Assistant
 Como o Home Assistant funciona localmente é necessário fazer a instalação em um computador, máquina virtual ou um Raspberry Pi por exemplo. 
 
@@ -97,9 +108,42 @@ Clique em Iniciar
 Verificar Funcionamento:
 
 Vá em Configurações → Dispositivos e Serviços
-Adicione uma integração MQTT 
+Adicione uma integração MQTT, com isso no menu de configurações já deve ser possível se inscrever em algum tópico para receber os pacotes via MQTT.
+No momento têm-se o tópico *sensor* e os sub tópicos *voltage, current, power, energy, frequency e pf*, para ver a tensão por exemplo, deve-se se inscrever no *sensor/voltage*, como resultado você deve ver algumo semelhante a isto:
 
-Com o MQTT instalado vamos adicionar o banco de dados InfluxDB
+<img alt="mqtt_msg" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/mqqt_msg.png" width="600" /> 
+
+Para salvar os dados será utilizado o File editor para criar as entidades que serão atribuidas aos dados que são recebidos via mqtt.
+
+Com o File Editor aditaremos o arquivo */homeassistant/configuration.yaml*, basta adicionar o seguinte código para criar as entidades:
+```
+mqtt:    
+    sensor:
+        - name: voltage
+          state_topic: "sensor/voltage"
+          unit_of_measurement: V
+
+        - name: current
+          state_topic: "sensor/current"
+          unit_of_measurement: A
+
+        - name: power
+          state_topic: "sensor/power"
+          unit_of_measurement: W
+
+        - name: energy
+          state_topic: "sensor/energy"
+          unit_of_measurement: Wh
+
+        - name: frequency
+          state_topic: "sensor/frequency"
+          unit_of_measurement: Hz
+          
+        - name: fp
+          state_topic: "sensor/pf"
+          unit_of_measurement: fp
+```
+Agora vamos criar o banco de dados com o InfluxDB, para armazenar os dados e os manipular.
 
 ---
 ### Adicionando o InfluxDB no Home Assistant
@@ -156,6 +200,16 @@ Selecione Configure Query e escolha o banco de dados home_assistant
 OBS: O código das query estão no arquivo [Código_dos_gráficos_influxDB.md](https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/C%C3%B3digo_dos_gr%C3%A1ficos_influxDB.md)
 
 6. Utilizando os códigos, você pode personalizar os gráficos como desejar.
+
+---
+
+### Teste do Monitor de Energia
+
+Para o teste vamos monitorar o carregamento de um notebook, após realizar as configuração de conexão do monitor e do Home Assistant conforme o passo a passo acima, podemos monitorar o consumo através da tela LCD no monitor ou pelo dashboard no Home Assistant.
+
+<img alt="monitor" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/monitor%20de%20energia.jpg" width="400" /> <img alt="dashboard" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/dashboard.png" width="700" /> 
+
+
 
 
 
