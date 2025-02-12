@@ -209,6 +209,23 @@ Para o teste vamos monitorar o carregamento de um notebook, após realizar as co
 
 <img alt="monitor" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/monitor%20de%20energia.jpg" width="400" /> <img alt="dashboard" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/dashboard.png" width="700" /> 
 
+Como visto acima podemos monitorar os parâmetros elétricos do dispositivo conectado ao monitor. Vamos testar o sistema de proteção, como a potência consumida é entre 15W - 20 W então para provocar um alerta iremos limitar em 10W, para isso entramos no página web do monitor de energia → configurar alertas e colocamos Max Power com 10W.
+
+<img alt="tela principal" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/menu%20de%20configuracao.png" width="350" /> <img alt="tela de alertas" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/tela%20de%20alertas.png" width="300" /> <img alt="alerta de potencia" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/alerta%20de%20potencia.jpg" width="350" />
+
+Como vemos acima o monitor entra em modo proteção e desliga a carga, para voltar a funcionar é necessário ligar novamente no menu principal.
+
+O consumo acumulado pode ser acessado pelo menu e la você poderá estimar o valor gasto pela caraga conectada, somente digite o valor pago por kWh e calcule. Caso você quiser zerar o contador nesta página também é possível fazer isto.
+<img alt="tela energia consumida" src="https://github.com/EmmanuelRGuesser/PJ_Integrador_3/blob/main/imgs/tela%20de%20energia%20consumida.png" width="350" />
+
+---
+
+### Considerações finais
+
+O desenvolvimento do projeto atingiu seus objetivos propostos, resultando em um dispositivo funcional capaz de monitorar o consumo elétrico de forma eficiente. A integração do hardware e software permitiu a coleta e visualização dos dados em tempo real, proporcionando um produto prático para automação residencial. Para projetos futuros, considera-se a possibilidade de utilizar um banco de dados mais robusto, um software mais avançado para a criação do dashboard e a adoção de componentes SMD para um design mais compacto, eficiente e profissional, reduzindo o tamanho da case e aprimorando a estética e usabilidade do dispositivo.
+
+
+
 
 
 
